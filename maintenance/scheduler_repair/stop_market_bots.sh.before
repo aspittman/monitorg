@@ -1,0 +1,70 @@
+#!/bin/bash
+
+BASE="$HOME/MyBotz"
+LOG_DIR="$BASE/cron_logs"
+PID_DIR="$BASE/pids"
+
+mkdir -p "$LOG_DIR"
+mkdir -p "$PID_DIR"
+
+BOTS=(
+    "ccexchange"
+    "ETFEnhancer"
+    "ETFEnhancerLT"
+    "momentum_master"
+    "options_covered"
+    "options_secured"
+    "options_inverted"
+    "options_direct"
+)
+
+stop_bot() {
+    NAME="$1"
+    PID_FILE="$PID_DIR/${NAME}.pid"
+    LOG="$LOG_DIR/${NAME}.log"
+
+    if [ ! -f "$PID_FILE" ]; then
+        echo "[$(date)] $NAME: no PID file found; assuming not running." >> "$LOG"
+        return
+    fi
+
+    PID=$(cat "$PID_FILE")
+
+    if ! kill -0 "$PID" 2>/dev/null; then
+        echo "[$(date)] $NAME: PID $PID is no longer running." >> "$LOG"
+        rm -f "$PID_FILE"
+        return
+    fi
+
+    echo "[$(date)] Stopping $NAME (PID $PID)" >> "$LOG"
+
+    # Request graceful shutdown
+    kill "$PID"
+
+    # Wait up to 15 seconds
+    for i in {1..15}; do
+        if ! kill -0 "$PID" 2>/dev/null; then
+            break
+        fi
+
+        sleep 1
+    done
+
+    # Force termination if necessary
+    if kill -0 "$PID" 2>/dev/null; then
+        echo "[$(date)] $NAME did not stop gracefully; force stopping." >> "$LOG"
+        kill -9 "$PID"
+        sleep 1
+    fi
+
+    rm -f "$PID_FILE"
+
+    echo "[$(date)] $NAME stopped." >> "$LOG"
+}
+
+for BOT in "${BOTS[@]}"; do
+    stop_bot "$BOT"
+done
+
+echo "[$(date)] Finished stopping configured trading bots." \
+    >> "$LOG_DIR/market_runner.log"

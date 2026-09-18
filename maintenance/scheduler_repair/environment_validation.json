@@ -1,0 +1,58 @@
+[
+  {
+    "bot": "ccexchange",
+    "python": "/home/stardustbreaker/MyBotz/ccexchange/.venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "ETFEnhancer",
+    "python": "/home/stardustbreaker/MyBotz/ETFEnhancer/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "ETFEnhancerLT",
+    "python": "/home/stardustbreaker/MyBotz/ETFEnhancerLT/.venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "momentum_master",
+    "python": "/home/stardustbreaker/MyBotz/momentum_master/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "options_covered",
+    "python": "/home/stardustbreaker/MyBotz/options_covered/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "options_secured",
+    "python": "/home/stardustbreaker/MyBotz/options_secured/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "options_inverted",
+    "python": "/home/stardustbreaker/MyBotz/options_inverted/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  },
+  {
+    "bot": "options_direct",
+    "python": "/home/stardustbreaker/MyBotz/options_direct/venv/bin/python",
+    "dependencies_ok": true,
+    "imports_ok": true,
+    "details": "No broken requirements found.\nWARNING: The directory '/home/stardustbreaker/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag."
+  }
+]

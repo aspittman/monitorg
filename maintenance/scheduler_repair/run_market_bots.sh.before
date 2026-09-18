@@ -1,0 +1,83 @@
+#!/bin/bash
+
+BASE="$HOME/MyBotz"
+LOG_DIR="$BASE/cron_logs"
+PID_DIR="$BASE/pids"
+
+mkdir -p "$LOG_DIR"
+mkdir -p "$PID_DIR"
+
+BOTS=(
+    "ccexchange"
+    "ETFEnhancer"
+    "ETFEnhancerLT"
+    "momentum_master"
+    "options_covered"
+    "options_secured"
+    "options_inverted"
+    "options_direct"
+)
+
+run_bot() {
+    NAME="$1"
+    BOT_DIR="$BASE/$NAME"
+    PYTHON="$BOT_DIR/venv/bin/python"
+    SCRIPT="$BOT_DIR/launcher.py"
+    LOG="$LOG_DIR/${NAME}.log"
+    PID_FILE="$PID_DIR/${NAME}.pid"
+
+    echo "[$(date)] Checking $NAME" >> "$LOG"
+
+    # Check for an existing process
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+
+        if kill -0 "$PID" 2>/dev/null; then
+            echo "[$(date)] $NAME is already running with PID $PID" >> "$LOG"
+            return
+        else
+            echo "[$(date)] Removing stale PID file for $NAME" >> "$LOG"
+            rm -f "$PID_FILE"
+        fi
+    fi
+
+    # Make sure virtual environment exists
+    if [ ! -x "$PYTHON" ]; then
+        echo "[$(date)] ERROR: Python not found: $PYTHON" >> "$LOG"
+        return
+    fi
+
+    # Make sure launcher.py exists
+    if [ ! -f "$SCRIPT" ]; then
+        echo "[$(date)] ERROR: launcher.py not found: $SCRIPT" >> "$LOG"
+        return
+    fi
+
+    echo "[$(date)] Starting $NAME" >> "$LOG"
+
+    cd "$BOT_DIR" || {
+        echo "[$(date)] ERROR: Could not enter $BOT_DIR" >> "$LOG"
+        return
+    }
+
+    nohup "$PYTHON" "$SCRIPT" >> "$LOG" 2>&1 &
+
+    PID=$!
+    echo "$PID" > "$PID_FILE"
+
+    sleep 1
+
+    if kill -0 "$PID" 2>/dev/null; then
+        echo "[$(date)] SUCCESS: $NAME running with PID $PID" >> "$LOG"
+    else
+        echo "[$(date)] ERROR: $NAME exited immediately" >> "$LOG"
+        rm -f "$PID_FILE"
+    fi
+}
+
+for BOT in "${BOTS[@]}"; do
+    run_bot "$BOT"
+done
+
+echo "[$(date)] Finished starting configured trading bots." \
+    >> "$LOG_DIR/market_runner.log"

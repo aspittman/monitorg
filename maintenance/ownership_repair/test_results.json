@@ -1,0 +1,42 @@
+[
+  {
+    "bot": "options_inverted",
+    "exit_code": 0,
+    "tail": ".........................................................................................Shared loss history unavailable; entries blocked: file is not a database\n..................\n----------------------------------------------------------------------\nRan 107 tests in 5.524s\n\nOK\n\nlong_put | virtual capital $25,000 | premium cap $500\nQualified signals: 2 | Executed trades: 1\nRejected: {'PREMIUM_OVER_LIMIT': 1}\nEnding virtual capital: $25,000.00 | Return: 0.00%\nResearch outputs: /tmp/tmp8l67a26t/500_{summary.json,trades.csv,equity.csv,rejected.csv}\n"
+  },
+  {
+    "bot": "options_secured",
+    "exit_code": 0,
+    "tail": "..................................................................Shared loss history unavailable; entries blocked: file is not a database\n.......................................\n----------------------------------------------------------------------\nRan 105 tests in 18.858s\n\nOK\n"
+  },
+  {
+    "bot": "ETFEnhancer",
+    "exit_code": 0,
+    "tail": "..............................\n----------------------------------------------------------------------\nRan 30 tests in 0.336s\n\nOK\nBLOCKED ORDER: 'NOTETF' is outside ETFEnhancer's live ETF universe.\nAlready holding position. Skipping buy.\nBLOCKED ORDER: 'NOTETF' is outside ETFEnhancer's live ETF universe.\nBLOCKED ORDER: 'BTC/USD' is outside ETFEnhancer's live ETF universe.\nBLOCKED ORDER: 'SPY260918C00500000' is outside ETFEnhancer's live ETF universe.\nRemoved non-universe ETFEnhancer position state: NOTETF\nRemoved stale ETFEnhancer position state: XLV\n"
+  },
+  {
+    "bot": "momentum_master",
+    "exit_code": 0,
+    "tail": "...............................\n----------------------------------------------------------------------\nRan 31 tests in 5.807s\n\nOK\n\n=== MANAGING OPEN POSITIONS ===\nACCOUNT NOTICE: positions outside this bot's universe will not be managed: XLP\nFilled BUY market order for AAPL\nProtective stop active for AAPL at $95.00\n"
+  },
+  {
+    "bot": "ccexchange",
+    "exit_code": 0,
+    "tail": "...............................                                          [100%]\n=============================== warnings summary ===============================\ntests/test_execution.py::test_alpaca_sell_uses_asset_increment_without_rounding_up\n  /home/stardustbreaker/MyBotz/ccexchange/.venv/lib/python3.10/site-packages/websockets/legacy/__init__.py:6: DeprecationWarning: websockets.legacy is deprecated; see https://websockets.readthedocs.io/en/stable/howto/upgrade.html for upgrade instructions\n    warnings.warn(  # deprecated in 14.0 - 2024-11-09\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n31 passed, 1 warning in 2.35s\n"
+  },
+  {
+    "bot": "options_covered",
+    "exit_code": 0,
+    "tail": ".........\u001b[1;32m\u2605 LOW-PREMIUM COVERED CALL <= $500: ABC261022C00055000 (ABC) mid=$1.02, bid=$1.00, ask=$1.04, estimated premium=$102.00\u001b[0m\n.........\u001b[1;32m\u2605 LOW-PREMIUM COVERED CALL <= $500: SPY261022C00105000 (SPY) mid=$1.02, bid=$1.00, ask=$1.05, estimated premium=$102.50\u001b[0m\n..\u001b[1;32m\u2605 LOW-PREMIUM COVERED CALL <= $500: SPY261022C00105000 (SPY) mid=$1.02, bid=$1.00, ask=$1.05, estimated premium=$102.50\u001b[0m\n.\u001b[1;32m\u2605 LOW-PREMIUM COVERED CALL <= $500: SPY261022C00105000 (SPY) mid=$1.02, bid=$1.00, ask=$1.05, estimated premium=$102.50\u001b[0m\n..........\u001b[1;32m\u2605 LOW-PREMIUM COVERED CALL <= $500: SPY261022C00105000 (SPY) mid=$1.02, bid=$1.00, ask=$1.05, estimated premium=$102.50\u001b[0m\n.Alpaca clock attempt 1/3 failed: 500 Internal Server Error; retrying in 2s\nAlpaca clock attempt 2/3 failed: 500 Internal Server Error; retrying in 5s\nAlpaca clock unavailable after 3 attempts: 500 Internal Server Error\n.Alpaca clock attempt 1/3 failed: 500 Internal Server Error; retrying in 2s\nAlpaca clock attempt 2/3 failed: 500 Internal Server Error; retrying in 5s\n......................................................................Shared loss history unavailable; entries blocked: file is not a database\n......\n----------------------------------------------------------------------\nRan 109 tests in 7.132s\n\nOK\n"
+  },
+  {
+    "bot": "ETFEnhancerLT",
+    "exit_code": 0,
+    "tail": "..............................                                           [100%]\n30 passed in 1.97s\n"
+  },
+  {
+    "bot": "options_direct",
+    "exit_code": 0,
+    "tail": ".......................................................................Shared loss history unavailable; entries blocked: file is not a database\n.....\n----------------------------------------------------------------------\nRan 76 tests in 0.648s\n\nOK\n"
+  }
+]

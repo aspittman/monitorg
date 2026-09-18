@@ -1,0 +1,68 @@
+{
+  "validated_at": "2026-09-17T17:01:57.196453+00:00",
+  "bots": {
+    "ccexchange": {
+      "trader_id": "ccexchange",
+      "positions": []
+    },
+    "ETFEnhancer": {
+      "trader_id": "ETFEnhancer",
+      "positions": [
+        {
+          "symbol": "SCHD",
+          "quantity": "0.723760426"
+        },
+        {
+          "symbol": "SPY",
+          "quantity": "0.101296764"
+        },
+        {
+          "symbol": "XLB",
+          "quantity": "0.468961116"
+        }
+      ]
+    },
+    "ETFEnhancerLT": {
+      "trader_id": "ETFEnhancerLT",
+      "positions": []
+    },
+    "momentum_master": {
+      "trader_id": "momentum_master",
+      "positions": [
+        {
+          "symbol": "CRWD",
+          "quantity": "1.175472088"
+        },
+        {
+          "symbol": "NVDA",
+          "quantity": "1.096147069"
+        }
+      ]
+    },
+    "options_covered": {
+      "trader_id": "options_covered",
+      "positions": []
+    },
+    "options_secured": {
+      "trader_id": "options_secured",
+      "positions": [
+        {
+          "symbol": "XBI261016P00145000",
+          "quantity": "-1"
+        }
+      ]
+    },
+    "options_inverted": {
+      "trader_id": "options_inverted",
+      "positions": []
+    },
+    "options_direct": {
+      "trader_id": "options_direct",
+      "positions": []
+    }
+  },
+  "broker_mutations": 0,
+  "installed_at": "2026-09-17T17:01:59.537436+00:00",
+  "backup": "/home/stardustbreaker/MyBotz/ownership_backups/20260917T170158Z",
+  "activation": "Next normal cron restart. No trading process was restarted."
+}

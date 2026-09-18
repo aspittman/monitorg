@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-09-17T03:02:29.017435-04:00",
+  "deployed_files_match": true,
+  "preflight": "ccexchange: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/ccexchange/.venv/bin/python | STOPPED\nETFEnhancer: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/ETFEnhancer/venv/bin/python | RUNNING 587358,587360\nETFEnhancerLT: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/ETFEnhancerLT/.venv/bin/python | STOPPED\nmomentum_master: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/momentum_master/venv/bin/python | RUNNING 587369,587371\noptions_covered: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/options_covered/venv/bin/python | STOPPED\noptions_secured: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/options_secured/venv/bin/python | STOPPED\noptions_inverted: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/options_inverted/venv/bin/python | STOPPED\noptions_direct: READY | Python 3.10.12 | /home/stardustbreaker/MyBotz/options_direct/venv/bin/python | RUNNING 587386,587388\n",
+  "cron_matches": true,
+  "cron_service": "active",
+  "timezone": "America/Detroit",
+  "trading_bots_started_or_stopped": false
+}

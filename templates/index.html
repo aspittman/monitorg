@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>BotMonitor</title>
+  <link rel="stylesheet" href="/static/style.css"><script defer src="/api/bootstrap.js"></script><script defer src="/static/app.js"></script>
+</head>
+<body>
+  <header><a class="brand" href="/">B<span>BotMonitor</span></a><div class="connection"><span class="dot"></span> LOCAL · READ ONLY <span id="updated">Connecting…</span></div></header>
+  <main>
+    <div class="intro"><div class="eyebrow">TRADING OPERATIONS</div><h1>Your bots, in view.</h1><p>Eight independent strategies. One place to observe them.</p></div>
+    <div id="error" class="banner" role="alert" hidden></div>
+    <section class="summary" id="summary" aria-label="Portfolio summary"></section>
+    <section class="panel"><div class="section-head"><div><h2>Bot overview</h2><p>Local ledger positions and confirmed execution orders · <span id="timezone"></span></p></div><span class="tag">AUTO REFRESH <span id="interval">10</span>s</span></div>
+      <div class="table-wrap"><table><thead><tr><th>BOT</th><th>STATUS</th><th>POSITIONS</th><th>TODAY</th><th>MONTH</th><th>TODAY %</th><th>MONTH %</th><th>TOTAL %</th><th>DATA</th></tr></thead><tbody id="bots"><tr><td colspan="9">Reading source ledgers…</td></tr></tbody></table></div>
+      <p class="footnote" id="definition"></p>
+    </section>
+    <section class="panel" id="detail" aria-label="Bot detail"><div class="section-head"><div><div class="eyebrow">BOT DETAIL</div><h2 id="detail-title">Select a bot above</h2></div><select id="bot-select" aria-label="Select bot"></select></div><div id="detail-content"></div></section>
+    <div class="two-col">
+      <section class="panel"><div class="section-head"><div><h2>Performance history</h2><p id="chart-caption">Snapshots collected by BotMonitor</p></div><select id="chart-metric" aria-label="Chart metric"><option value="realized_pl">Gross realized P/L</option><option value="unrealized_pl">Unrealized P/L</option><option value="equity_if_known">Bot equity</option><option value="daily">Observed daily P/L change</option><option value="monthly">Observed monthly P/L change</option><option value="trade_count_day">Daily execution count</option></select></div>
+        <div class="chart"><canvas id="history" role="img" aria-label="Selected bot historical monitoring data"></canvas><p id="chart-empty">History will populate as snapshots are collected.</p></div><p class="footnote">No synthetic history. P/L changes cover observed snapshots only; they are not full-period returns. Gaps represent unavailable values.</p>
+      </section>
+      <section class="panel"><div class="section-head"><div><h2>Recent activity</h2><p>Attributable, confirmed local fills</p></div></div><div id="activity" class="activity"></div></section>
+    </div>
+    <section class="panel"><div class="section-head"><div><h2>Shared accounts</h2><p>Account holdings and equity stay separate from bot performance.</p></div><span class="tag">GET REQUESTS ONLY</span></div><div id="accounts"></div></section>
+    <footer>BotMonitor operates independently of cron and trading. <span id="snapshot-interval"></span> · P/L in USD, gross of fees unless the source includes them.</footer>
+  </main>
+</body>
+</html>

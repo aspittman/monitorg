@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-09-17T16:30:58.179950+00:00",
+  "bots": [
+    {
+      "bot_id": "ccexchange",
+      "open_positions": 0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "ETFEnhancer",
+      "open_positions": 3,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "ETFEnhancerLT",
+      "open_positions": 0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "momentum_master",
+      "open_positions": 2,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_covered",
+      "open_positions": 0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_secured",
+      "open_positions": 1,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_inverted",
+      "open_positions": 0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_direct",
+      "open_positions": 0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    }
+  ]
+}

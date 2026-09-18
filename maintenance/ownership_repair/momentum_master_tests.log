@@ -1,0 +1,10 @@
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 5.807s
+
+OK
+
+=== MANAGING OPEN POSITIONS ===
+ACCOUNT NOTICE: positions outside this bot's universe will not be managed: XLP
+Filled BUY market order for AAPL
+Protective stop active for AAPL at $95.00

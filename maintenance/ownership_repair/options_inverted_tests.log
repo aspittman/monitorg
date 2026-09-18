@@ -1,0 +1,12 @@
+.........................................................................................Shared loss history unavailable; entries blocked: file is not a database
+..................
+----------------------------------------------------------------------
+Ran 107 tests in 5.524s
+
+OK
+
+long_put | virtual capital $25,000 | premium cap $500
+Qualified signals: 2 | Executed trades: 1
+Rejected: {'PREMIUM_OVER_LIMIT': 1}
+Ending virtual capital: $25,000.00 | Return: 0.00%
+Research outputs: /tmp/tmp8l67a26t/500_{summary.json,trades.csv,equity.csv,rejected.csv}

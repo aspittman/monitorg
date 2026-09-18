@@ -1,0 +1,10 @@
+{
+  "backup": "/home/stardustbreaker/MyBotz/scheduler_backups/20260917T030106",
+  "installed_at": "2026-09-17T03:01:06.146214-04:00",
+  "files": [
+    "/home/stardustbreaker/MyBotz/run_market_bots.sh",
+    "/home/stardustbreaker/MyBotz/stop_market_bots.sh",
+    "/home/stardustbreaker/MyBotz/market_bot_scheduler.py"
+  ],
+  "cron_verified": true
+}

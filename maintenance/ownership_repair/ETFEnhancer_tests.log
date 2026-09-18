@@ -1,0 +1,12 @@
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.336s
+
+OK
+BLOCKED ORDER: 'NOTETF' is outside ETFEnhancer's live ETF universe.
+Already holding position. Skipping buy.
+BLOCKED ORDER: 'NOTETF' is outside ETFEnhancer's live ETF universe.
+BLOCKED ORDER: 'BTC/USD' is outside ETFEnhancer's live ETF universe.
+BLOCKED ORDER: 'SPY260918C00500000' is outside ETFEnhancer's live ETF universe.
+Removed non-universe ETFEnhancer position state: NOTETF
+Removed stale ETFEnhancer position state: XLV

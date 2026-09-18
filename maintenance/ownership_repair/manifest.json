@@ -1,0 +1,82 @@
+[
+  {
+    "path": "ccexchange/src/ccexchange/execution.py",
+    "before_sha256": "71b00c5d6bae9a1720368365f3f309842827521bd487121d352bc7cc3b92e5f2",
+    "after_sha256": "6f0672add69af209e25ecd1008bd940fdc45078aaac2a122a69378ba8343e090"
+  },
+  {
+    "path": "ccexchange/src/ccexchange/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "ad0bd82a7be43861f29ebbbb4129b7fa5b0efbe8f91f1e908696d0e31804ed52"
+  },
+  {
+    "path": "ETFEnhancer/trader.py",
+    "before_sha256": "9b181d32844bdb560366dfc5e490db940fdc3af422f057cb8a352ae1a1ec0d3c",
+    "after_sha256": "ced790f527a1b6f61fd45d337d3f2b214e97be5ec2dc41a437775185f7d3bd22"
+  },
+  {
+    "path": "ETFEnhancer/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "941a6e540494480472190c0defffddb55da3e9fe2fa3863194e8a931fe7de7cd"
+  },
+  {
+    "path": "ETFEnhancerLT/brokerage/alpaca_client.py",
+    "before_sha256": "ea9269c58d959aafb361d5efe46c5d87983dbd6bac03bc05cd374ff7066ffa4e",
+    "after_sha256": "686e509a1caa4874b6dc2295475d285b2a78d4ad0e3fdd02411c7e1e7831acf6"
+  },
+  {
+    "path": "ETFEnhancerLT/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "bbd8d219276c80db13da4f5fb0468f5097f382621e3f1690f68e2fd0b1130a1f"
+  },
+  {
+    "path": "momentum_master/trader.py",
+    "before_sha256": "dec82c85e63a35e475b93f961a69b43001ce567be382b6f9e5507b7f1314dd01",
+    "after_sha256": "6d7722a3ad9eb6d7e2799cd8c88868bd1432f29636f75c7aaeec65d855ab3099"
+  },
+  {
+    "path": "momentum_master/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "fba522d00bc83de9f1013406dab69235ec5b50ec350b119a72e7d340d88b7a08"
+  },
+  {
+    "path": "options_covered/broker.py",
+    "before_sha256": "2c22ffd541993c8121bfb7c462416148263de7c1f477fef00e1b22ccbe216d52",
+    "after_sha256": "8ab8dbd02f3eff86a2b389185d2f146d183f188e2ab39c1d9d5470a59e6783e0"
+  },
+  {
+    "path": "options_covered/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "ee1f2b09d12bc79c7c2c354af5cd204b8062a14c917b8a61427ebc9fb89693b5"
+  },
+  {
+    "path": "options_secured/options_trader.py",
+    "before_sha256": "6a1be7c669c8c9791721fcb753a499b09bd108588f89da2eca4169fb5d686338",
+    "after_sha256": "5f3b05a896881310416debedd0f18953e095b04266ca2e54b8c12a4d5ff57000"
+  },
+  {
+    "path": "options_secured/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "167bbfb859d9283655ceccad9a71ddc1a21f08d656f668776acd7287cff301a5"
+  },
+  {
+    "path": "options_inverted/options_trader.py",
+    "before_sha256": "a42ecc6699a07be3ce4873e757c6604b4b4753f8da904fecc90627de937b46d0",
+    "after_sha256": "88a1b541f517059e0039f6fdc1d83058ddee0c318bc0cccda8534f39ac259b21"
+  },
+  {
+    "path": "options_inverted/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "8a65f013518410fdf809b816345ce95e68a7fe6c926800902920d7a54ec79659"
+  },
+  {
+    "path": "options_direct/options_trader.py",
+    "before_sha256": "163d1c215b89a242e588f01de60d27569414dcb136c25b81a646c264619e44ff",
+    "after_sha256": "4f5a9a7e63527efa52becf682d58dd24e0f9ed178ecfaa0fa1fa389d9f861651"
+  },
+  {
+    "path": "options_direct/bot_ownership.py",
+    "before_sha256": null,
+    "after_sha256": "8022d97341e7062ed6f98209d65441c79b129bdc2f8094599d65467ce37855e1"
+  }
+]

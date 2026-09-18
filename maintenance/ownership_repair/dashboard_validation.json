@@ -1,0 +1,94 @@
+{
+  "monitor_pid": 1004848,
+  "dashboard_timestamp": "2026-09-17T17:03:31.764343+00:00",
+  "bot_processes_unchanged": true,
+  "bots": [
+    {
+      "bot_id": "ccexchange",
+      "status": "RUNNING",
+      "pids": [
+        941667,
+        941668
+      ],
+      "open_positions": 0,
+      "unrealized_pl": 0.0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "ETFEnhancer",
+      "status": "RUNNING",
+      "pids": [
+        587358,
+        587360
+      ],
+      "open_positions": 3,
+      "unrealized_pl": -2.3996776033699856,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "ETFEnhancerLT",
+      "status": "RUNNING",
+      "pids": [
+        941681,
+        941682
+      ],
+      "open_positions": 0,
+      "unrealized_pl": 0.0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "momentum_master",
+      "status": "RUNNING",
+      "pids": [
+        587369,
+        587371
+      ],
+      "open_positions": 2,
+      "unrealized_pl": 25.08269550302002,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_covered",
+      "status": "RUNNING",
+      "pids": [
+        941688,
+        941689
+      ],
+      "open_positions": 0,
+      "unrealized_pl": 0.0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_secured",
+      "status": "RUNNING",
+      "pids": [
+        941693
+      ],
+      "open_positions": 1,
+      "unrealized_pl": 16.999999999999993,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_inverted",
+      "status": "RUNNING",
+      "pids": [
+        941703,
+        941704
+      ],
+      "open_positions": 0,
+      "unrealized_pl": 0.0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    },
+    {
+      "bot_id": "options_direct",
+      "status": "RUNNING",
+      "pids": [
+        587386,
+        587388
+      ],
+      "open_positions": 0,
+      "unrealized_pl": 0.0,
+      "position_confidence": "Bot-owned quantities checked against account; prices from broker"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+Collecting alpaca-py==0.43.4
+  Downloading alpaca_py-0.43.4-py3-none-any.whl (122 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.5/122.5 KB 1.8 MB/s eta 0:00:00
+Collecting annotated-types==0.7.0
+  Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Collecting beautifulsoup4==4.14.3
+  Downloading beautifulsoup4-4.14.3-py3-none-any.whl (107 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.7/107.7 KB 2.8 MB/s eta 0:00:00
+Collecting certifi==2026.5.20
+  Downloading certifi-2026.5.20-py3-none-any.whl (134 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.1/134.1 KB 1.8 MB/s eta 0:00:00
+Collecting cffi==2.0.0
+  Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.5/216.5 KB 610.9 kB/s eta 0:00:00
+Collecting charset-normalizer==3.4.7
+  Downloading charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (216 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.9/216.9 KB 787.9 kB/s eta 0:00:00
+Collecting curl_cffi==0.15.0
+  Downloading curl_cffi-0.15.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (11.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.1/11.1 MB 860.2 kB/s eta 0:00:00
+Collecting idna==3.16
+  Downloading idna-3.16-py3-none-any.whl (74 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.2/74.2 KB 991.8 kB/s eta 0:00:00
+Collecting lxml==6.0.2
+  Downloading lxml-6.0.2-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 814.7 kB/s eta 0:00:00
+Collecting markdown-it-py==4.2.0
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 KB 1.6 MB/s eta 0:00:00
+Collecting mdurl==0.1.2
+  Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Collecting msgpack==1.1.2
+  Downloading msgpack-1.1.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (406 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 406.1/406.1 KB 603.0 kB/s eta 0:00:00
+Collecting multitasking==0.0.13
+  Downloading multitasking-0.0.13-py3-none-any.whl (16 kB)
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 1.1 MB/s eta 0:00:00
+Collecting pandas==2.3.3
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 1.6 MB/s eta 0:00:00
+Collecting peewee==4.0.6
+  Downloading peewee-4.0.6-py3-none-any.whl (146 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 146.2/146.2 KB 2.0 MB/s eta 0:00:00
+Collecting platformdirs==4.9.6
+  Downloading platformdirs-4.9.6-py3-none-any.whl (21 kB)
+Collecting protobuf==7.35.0
+  Downloading protobuf-7.35.0-cp310-abi3-manylinux2014_x86_64.whl (327 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 327.1/327.1 KB 1.5 MB/s eta 0:00:00
+Collecting pycparser==3.0
+  Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 KB 1.6 MB/s eta 0:00:00
+Collecting pydantic==2.13.4
+  Downloading pydantic-2.13.4-py3-none-any.whl (472 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 472.3/472.3 KB 2.1 MB/s eta 0:00:00
+Collecting pydantic_core==2.46.4
+  Downloading pydantic_core-2.46.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.4 MB/s eta 0:00:00
+Collecting Pygments==2.20.0
+  Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.8 MB/s eta 0:00:00
+Collecting python-dateutil==2.9.0.post0
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 KB 2.3 MB/s eta 0:00:00
+Collecting python-dotenv==1.2.2
+  Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+Collecting pytz==2026.2
+  Downloading pytz-2026.2-py2.py3-none-any.whl (510 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 510.1/510.1 KB 2.1 MB/s eta 0:00:00
+Collecting requests==2.34.2
+  Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.1/73.1 KB 3.0 MB/s eta 0:00:00
+Collecting rich==15.0.0
+  Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 KB 2.2 MB/s eta 0:00:00
+Collecting six==1.17.0
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting soupsieve==2.8.3
+  Downloading soupsieve-2.8.3-py3-none-any.whl (37 kB)
+Collecting sseclient-py==1.9.0
+  Downloading sseclient_py-1.9.0-py3-none-any.whl (8.4 kB)
+Collecting ta==0.11.0
+  Downloading ta-0.11.0.tar.gz (25 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting typing-inspection==0.4.2
+  Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Collecting typing_extensions==4.15.0
+  Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 KB 5.2 MB/s eta 0:00:00
+Collecting tzdata==2026.2
+  Downloading tzdata-2026.2-py2.py3-none-any.whl (349 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 349.3/349.3 KB 2.0 MB/s eta 0:00:00
+Collecting urllib3==2.7.0
+  Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.1/131.1 KB 2.3 MB/s eta 0:00:00
+Collecting websockets==16.0
+  Downloading websockets-16.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (183 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 183.8/183.8 KB 2.4 MB/s eta 0:00:00
+Collecting yfinance==1.4.0
+  Downloading yfinance-1.4.0-py2.py3-none-any.whl (137 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.7/137.7 KB 3.1 MB/s eta 0:00:00
+Using legacy 'setup.py install' for ta, since package 'wheel' is not installed.
+Installing collected packages: pytz, peewee, multitasking, websockets, urllib3, tzdata, typing_extensions, sseclient-py, soupsieve, six, python-dotenv, Pygments, pycparser, protobuf, platformdirs, numpy, msgpack, mdurl, lxml, idna, charset-normalizer, certifi, annotated-types, typing-inspection, requests, python-dateutil, pydantic_core, markdown-it-py, cffi, beautifulsoup4, rich, pydantic, pandas, ta, curl_cffi, alpaca-py, yfinance
+  Running setup.py install for ta: started
+  Running setup.py install for ta: finished with status 'done'
+Successfully installed Pygments-2.20.0 alpaca-py-0.43.4 annotated-types-0.7.0 beautifulsoup4-4.14.3 certifi-2026.5.20 cffi-2.0.0 charset-normalizer-3.4.7 curl_cffi-0.15.0 idna-3.16 lxml-6.0.2 markdown-it-py-4.2.0 mdurl-0.1.2 msgpack-1.1.2 multitasking-0.0.13 numpy-2.2.6 pandas-2.3.3 peewee-4.0.6 platformdirs-4.9.6 protobuf-7.35.0 pycparser-3.0 pydantic-2.13.4 pydantic_core-2.46.4 python-dateutil-2.9.0.post0 python-dotenv-1.2.2 pytz-2026.2 requests-2.34.2 rich-15.0.0 six-1.17.0 soupsieve-2.8.3 sseclient-py-1.9.0 ta-0.11.0 typing-inspection-0.4.2 typing_extensions-4.15.0 tzdata-2026.2 urllib3-2.7.0 websockets-16.0 yfinance-1.4.0
+No broken requirements found.
