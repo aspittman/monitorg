@@ -3,6 +3,7 @@ import json
 import sqlite3
 from pathlib import Path
 from models.records import position, parse_datetime
+from adapters.base import Adapter
 
 
 def key(symbol):
@@ -56,6 +57,19 @@ def reconcile(data, account):
         data.positions = None
         data.warnings.append('Ownership reconciliation unavailable/incomplete; no position estimate substituted.')
         return
+    if data.bot_id in account.get('unresolved_order_owners', []):
+        data.warnings.append('An order reservation could not be matched to a broker order. Current positions are independently checked against fills and broker quantities; the trading reservation remains unchanged.')
+    if data.bot_id == 'ccexchange':
+        # Its hourly local ledger may lag an executed broker order. Only import
+        # fills whose immutable order ID is already registered to this bot.
+        local_ids={t['order_id'] for t in data.trades}
+        adapter=Adapter('.',data.bot_id)
+        for fill in account.get('month_fills',[]):
+            if fill['order_id'] not in local_ids and registry['order_owners'].get(fill['order_id'])==data.bot_id:
+                side='sell' if fill['side']=='sell_short' else fill['side']
+                trade=adapter.trade(fill['transaction_time'],fill['symbol'],side,fill['qty'],fill['price'],fill['order_id'],fill_id=fill['id'])
+                trade.update(time_source='Verified bot-owned Alpaca fill activity')
+                data.trades.append(trade)
     claims = registry['claims']
     broker = {key(p['symbol']):p for p in account['positions']}
     expected = {(s,row['owner']):float(row.get('quantity',0)) for s,row in registry.get('seed_claims',claims).items()}
@@ -87,10 +101,17 @@ def reconcile(data, account):
         other_inventory=any(s==symbol and owner!=data.bot_id and abs(qty)>1e-8 for (s,owner),qty in expected.items())
         if symbol in unknown or other_inventory or abs(quantity-expected.get((symbol,data.bot_id),0))>1e-8:
             data.positions=None
-            data.warnings.append('Audited ownership no longer reconciles for '+symbol+'; review intervening fills/settlements.')
+            expected_qty=expected.get((symbol,data.bot_id),0)
+            if market and market.get('asset_class')=='crypto' and symbol not in unknown and not other_inventory:
+                data.warnings.append(f'{symbol}: registered fills and available fee records imply {expected_qty:.9f} units, but Alpaca reports {quantity:.9f}. Crypto fee records may arrive later; position attribution remains N/A until the difference is verified. Account holdings are shown separately.')
+            else:
+                data.warnings.append('Audited ownership no longer reconciles for '+symbol+'; review intervening fills/settlements.')
             return
         if quantity:
-            owned.append(position(market['symbol'],quantity,market['entry'],'Verified account/instrument registry and broker fills'))
+            item=position(market['symbol'],quantity,market['entry'],'Verified account/instrument registry and broker fills')
+            if market.get('asset_class') == 'crypto':
+                item['asset_class']='crypto'
+            owned.append(item)
     unassigned = set(broker)-set(claims)
     # A formerly untagged equity bot could own new unassigned stock holdings.
     relevant = [s for s in unassigned if (broker[s]['asset_class']=='crypto') == (data.bot_id=='ccexchange')]

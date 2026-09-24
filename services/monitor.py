@@ -13,8 +13,11 @@ from services.account_registry import discover
 from services.alpaca_reader import AlpacaReader, activity_side
 from services.process_monitor import inspect
 from services.snapshot_store import SnapshotStore
+from services.explain_store import ExplainStore
+from services.explain_service import ExplainService
 from services.source_reader import signature
 from services.trade_service import counts
+from services.performance_service import closed_trade_returns
 from services.ownership_service import load_registry, reconcile
 
 
@@ -23,6 +26,13 @@ class Monitor:
         self.bot_root, self.data_dir, self.alpaca = bot_root, data_dir, alpaca
         self.accounts, self.environments, self.membership = discover(bot_root, config.BOTS)
         self.store = SnapshotStore(data_dir/'botmonitor.db')
+        self.explain = None
+        self.explain_error = None
+        try:
+            if config.EXPLAIN_ENABLED:
+                self.explain = ExplainService(ExplainStore(data_dir/'explainability.db'))
+        except Exception:
+            self.explain_error = 'Explainability storage unavailable; existing monitoring continues.'
         self.lock = threading.Lock()
         self.stop = threading.Event()
         self.cache, self.account_data, self.dashboard = {}, {}, None
@@ -67,8 +77,14 @@ class Monitor:
                     if public['ownership_registry']:
                         public['crypto_fees'] = reader.activities('CFEE',public['ownership_registry']['observed_at'],max_pages=20)
                         for cid,owner in public['ownership_registry']['pending_clients']:
-                            order = reader.get('/v2/orders:by_client_order_id', {'client_order_id':cid})
-                            public['ownership_registry']['order_owners'][order['id']] = owner
+                            try:
+                                order = reader.get('/v2/orders:by_client_order_id', {'client_order_id':cid})
+                                public['ownership_registry']['order_owners'][order['id']] = owner
+                            except Exception:
+                                # A reservation is not a fill. Keep its warning scoped to
+                                # its owner; actual unknown fills/quantity mismatches
+                                # still invalidate ownership in reconcile().
+                                public.setdefault('unresolved_order_owners', []).append(owner)
                 except Exception:
                     public['ownership_error'] = 'Ownership registry or pending order could not be verified.'
             except Exception as exc:
@@ -192,6 +208,10 @@ class Monitor:
                 b['position_confidence'] = 'Unknown ownership'
             if d.combined_reliable and b['realized_pl'] is not None and b['unrealized_pl'] is not None:
                 b['combined_pl'] = b['realized_pl']+b['unrealized_pl']
+            b['trade_returns'] = closed_trade_returns(d,now,config.TIMEZONE)
+            for period in ('today','month','total'):
+                b['trade_roi_'+period] = b['trade_returns'][period]['value']
+            b['trade_return_explanation'] = ('Trade ROI = 100 × gross realized P/L on matched closing quantities ÷ their entry cost; cash-secured puts use strike × contracts × 100 collateral. Partial closes use only the quantity closed. Fees and unrealized P/L are excluded. Total covers the available ledger, not lifetime portfolio performance.')
             # Detailed records remain available only where attribution is defensible.
             b['recent_trades'] = sorted(d.trades, key=lambda t:t['timestamp'], reverse=True)[:100] if d.history_reliable else []
             b.pop('trades')
@@ -209,6 +229,22 @@ class Monitor:
                 for b,p in owners:
                     b['warnings'].append(f'{symbol} is claimed by multiple bots; ownership is uncertain.')
                     b.update(open_positions=None, unrealized_pl=None, combined_pl=None, position_confidence='Overlapping bot ownership')
+        # Explainability consumes the final ownership assessment, including overlaps.
+        for d, b in zip(data, bots):
+            if self.explain:
+                for step in (
+                    lambda: self.explain.store.ingest(d.bot_id, self.bot_root/d.bot_id/'logs/monitor_events.jsonl'),
+                    lambda: self.explain.import_legacy(d.bot_id, self.bot_root/d.bot_id),
+                    lambda: self.explain.sync(d.bot_id, d.trades, b),
+                ):
+                    try:
+                        imported = step()
+                        if isinstance(imported, dict):
+                            b['explain_import'] = imported
+                    except Exception:
+                        b['explain_error'] = 'An explainability source failed; some explanations may be incomplete or stale. Existing monitoring continues.'
+            elif self.explain_error:
+                b['explain_error'] = self.explain_error
         public_accounts, handled = [], set()
         for a in self.accounts:
             label = aliases.get(a['label'], a['label'])

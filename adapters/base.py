@@ -38,7 +38,9 @@ class Adapter:
         try:
             positions, events, trips = reconstruct(data.trades, short=short)
             data.positions, data.pnl_events, data.round_trips = positions, events, trips
+            data.return_events = events
             data.realized_pl = sum(e['realized_pl'] for e in events)
         except ValueError as exc:
+            data.return_error = str(exc)
             data.warnings.append(str(exc))
         return data

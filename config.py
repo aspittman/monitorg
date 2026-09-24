@@ -17,3 +17,6 @@ STALE_SECONDS = max(60, int(os.getenv('BOTMONITOR_STALE_SECONDS', '86400')))
 TIMEZONE = ZoneInfo(os.getenv('BOTMONITOR_TIMEZONE', 'America/New_York'))
 SOURCE_TIMEZONE = ZoneInfo(os.getenv('BOTMONITOR_SOURCE_TIMEZONE', 'America/Detroit'))
 ALPACA_ENABLED = os.getenv('BOTMONITOR_ALPACA', '1').lower() in ('1', 'true', 'yes')
+
+# Independent read-only explainability layer; disable for immediate rollback.
+EXPLAIN_ENABLED = os.getenv('BOTMONITOR_EXPLAIN', '1').lower() in ('1', 'true', 'yes')

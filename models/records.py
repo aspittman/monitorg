@@ -63,6 +63,8 @@ class BotData:
     combined_reliable: bool = True
     round_trips: int | None = None
     pnl_events: list = field(default_factory=list)
+    return_events: list = field(default_factory=list)
+    return_error: str | None = None
     warnings: list = field(default_factory=list)
     source_files: list = field(default_factory=list)
     source_updated_at: str | None = None

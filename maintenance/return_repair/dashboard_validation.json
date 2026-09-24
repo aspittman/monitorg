@@ -1,0 +1,214 @@
+{
+  "timestamp": "2026-09-19T00:20:10.107766+00:00",
+  "passed": true,
+  "bots": {
+    "ccexchange": {
+      "today": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "month": {
+        "value": -2.1667264360151632,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -336.92155560090737,
+        "capital": 15549.7966887108,
+        "closes": 1
+      },
+      "total": {
+        "value": -2.1667264360151632,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -336.92155560090737,
+        "capital": 15549.7966887108,
+        "closes": 1
+      }
+    },
+    "ETFEnhancer": {
+      "today": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "month": {
+        "value": -0.067700816944372,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -0.3695990687539819,
+        "capital": 545.929998241634,
+        "closes": 7
+      },
+      "total": {
+        "value": 0.04212413242198657,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": 0.3285261077119963,
+        "capital": 779.899997514306,
+        "closes": 10
+      }
+    },
+    "ETFEnhancerLT": {
+      "today": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      },
+      "month": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      },
+      "total": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      }
+    },
+    "momentum_master": {
+      "today": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      },
+      "month": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      },
+      "total": {
+        "value": null,
+        "status": "unavailable",
+        "reason": "Reliable bot-owned execution history is unavailable.",
+        "realized_pl": null,
+        "capital": null,
+        "closes": 0
+      }
+    },
+    "options_covered": {
+      "today": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "month": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "total": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      }
+    },
+    "options_secured": {
+      "today": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "month": {
+        "value": 0.06407035175879394,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": 50.99999999999997,
+        "capital": 79600.0,
+        "closes": 2
+      },
+      "total": {
+        "value": 0.06407035175879394,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": 50.99999999999997,
+        "capital": 79600.0,
+        "closes": 2
+      }
+    },
+    "options_inverted": {
+      "today": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "month": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      },
+      "total": {
+        "value": null,
+        "status": "no_closes",
+        "reason": "No matched closing executions in this period; ROI has no denominator.",
+        "realized_pl": 0,
+        "capital": 0,
+        "closes": 0
+      }
+    },
+    "options_direct": {
+      "today": {
+        "value": -6.122448979591851,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -30.00000000000007,
+        "capital": 490.00000000000006,
+        "closes": 1
+      },
+      "month": {
+        "value": -2.4986709197235557,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -94.00000000000017,
+        "capital": 3762.0,
+        "closes": 12
+      },
+      "total": {
+        "value": -0.31481897908702905,
+        "status": "available",
+        "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+        "realized_pl": -14.000000000000181,
+        "capital": 4447.0,
+        "closes": 14
+      }
+    }
+  }
+}

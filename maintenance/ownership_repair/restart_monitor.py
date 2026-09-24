@@ -1,5 +1,5 @@
 """Restart only this local BotMonitor server; never signal trading processes."""
-import json,os,signal,subprocess,sys,time,urllib.request
+import json,os,signal,subprocess,sys,time,urllib.request,select
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT))
@@ -21,12 +21,13 @@ for p in Path('/proc').iterdir():
 if len(pids)>1:raise RuntimeError('Multiple monitor processes; refusing ambiguous restart')
 for pid in pids:
     descriptor=os.pidfd_open(pid)
-    try:signal.pidfd_send_signal(descriptor,signal.SIGINT)
+    try:
+        poller=select.poll();poller.register(descriptor,select.POLLIN)
+        signal.pidfd_send_signal(descriptor,signal.SIGINT)
+        for _ in range(300):
+            if poller.poll(100):break
+        else:raise RuntimeError('Monitor did not exit; no other process signalled')
     finally:os.close(descriptor)
-    for _ in range(100):
-        if not Path('/proc',str(pid)).exists():break
-        time.sleep(.1)
-    else:raise RuntimeError('Monitor did not exit; no other process signalled')
 log=(ROOT/'data/server.log').open('ab')
 child=subprocess.Popen([str(ROOT/'venv/bin/python'),str(ROOT/'app.py')],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
 log.close()

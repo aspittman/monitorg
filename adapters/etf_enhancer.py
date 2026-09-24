@@ -20,6 +20,7 @@ class ETFEnhancer(Adapter):
             if trade['asset_class'] != 'equity':
                 data.history_reliable = False
                 data.warnings.append('Unexpected option/crypto execution in equity ledger; attribution requires review.')
+            trade['entry_reason' if trade['side']=='buy' else 'exit_reason'] = row.get('reason') or None
             by_id[trade['order_id']] = trade
         data.trades = list(by_id.values())
         self.calculate(data)

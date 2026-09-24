@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-09-19T00:17:30.728346+00:00",
+  "bot": "options_secured",
+  "closes": [
+    {
+      "symbol": "SPY261016P00741000",
+      "realized_pl": "85.000",
+      "capital": "74100.0"
+    },
+    {
+      "symbol": "XLF261016P00055000",
+      "realized_pl": "-34.000",
+      "capital": "5500.0"
+    }
+  ],
+  "expected_roi": "0.06407035175879396984924623116",
+  "actual": {
+    "value": 0.06407035175879394,
+    "status": "available",
+    "reason": "100 \u00d7 gross realized P/L \u00f7 matched entry capital; excludes fees and unrealized P/L.",
+    "realized_pl": 50.99999999999997,
+    "capital": 79600.0,
+    "closes": 2
+  },
+  "passed": true
+}

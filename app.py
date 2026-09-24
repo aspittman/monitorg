@@ -32,6 +32,7 @@ def handler_for(monitor):
             url = urlsplit(self.path)
             routes = {'/': ('templates/index.html', 'text/html; charset=utf-8'),
                       '/static/app.js': ('static/app.js', 'text/javascript; charset=utf-8'),
+                      '/static/explain.js': ('static/explain.js', 'text/javascript; charset=utf-8'),
                       '/static/style.css': ('static/style.css', 'text/css; charset=utf-8')}
             if url.path in routes:
                 path, content_type = routes[url.path]
@@ -47,6 +48,35 @@ def handler_for(monitor):
                 if bot not in config.BOTS:
                     return self.send(400, '{"error":"Unknown bot"}')
                 return self.send(200, json.dumps(monitor.store.history(bot), allow_nan=False))
+            if url.path in ('/api/journal', '/api/inspector', '/api/decisions'):
+                params = {k:v[0] for k,v in parse_qs(url.query).items()}
+                bot = params.get('bot','')
+                if bot not in config.BOTS:
+                    return self.send(400, '{"error":"Unknown bot"}')
+                if not getattr(monitor, 'explain', None):
+                    return self.send(503, '{"error":"Explainability unavailable or disabled; existing monitoring continues"}')
+                try:
+                    limit = int(params.get('limit', '50'))
+                    offset = int(params.get('offset', '0'))
+                    if not 1 <= limit <= 200 or not 0 <= offset <= 10000000:
+                        raise ValueError()
+                    params.update(limit=limit,offset=offset)
+                except ValueError:
+                    return self.send(400, '{"error":"Invalid pagination"}')
+                try:
+                    if url.path == '/api/journal':
+                        data = monitor.explain.store.journal(bot, params)
+                    elif url.path == '/api/decisions':
+                        data = monitor.explain.store.events(bot, limit=limit, offset=offset)
+                        from services.explain_service import diagnostics
+                        data['diagnostics'] = diagnostics(data['items'])
+                    else:
+                        data = monitor.explain.inspector(bot, params.get('trade',''), limit, offset)
+                        if data is None:
+                            return self.send(404, '{"error":"Trade not found"}')
+                    return self.send(200, json.dumps(data,allow_nan=False))
+                except Exception:
+                    return self.send(503, '{"error":"Explainability read failed; existing monitoring continues"}')
             if url.path == '/api/health':
                 data = monitor.get_dashboard()
                 return self.send(200 if data else 503, json.dumps({'ready':bool(data), 'last_refresh':data['timestamp'] if data else None}))
