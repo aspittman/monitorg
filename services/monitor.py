@@ -215,10 +215,10 @@ class Monitor:
                 b['trade_roi_'+period] = b['trade_returns'][period]['value']
             b['trade_return_explanation'] = ('Trade ROI = 100 × gross realized P/L on matched closing quantities ÷ their entry cost; cash-secured puts use strike × contracts × 100 collateral. Partial closes use only the quantity closed. Fees and unrealized P/L are excluded. Total covers the available ledger, not lifetime portfolio performance.')
             # Detailed records remain available only where attribution is defensible.
-            b['recent_trades'] = sorted(d.trades, key=lambda t:t['timestamp'], reverse=True)[:100] if d.history_reliable else []
+            b['recent_trades'] = [{k:v for k,v in t.items() if k not in ('stop_history','stop_history_truncated')} for t in sorted(d.trades, key=lambda t:t['timestamp'], reverse=True)[:100]] if d.history_reliable else []
             b.pop('trades')
             if d.history_reliable:
-                recent.extend(d.trades)
+                recent.extend({k:v for k,v in t.items() if k not in ('stop_history','stop_history_truncated')} for t in d.trades)
             bots.append(b)
         # Check collectively claimed quantities, including multiple bots in the same account.
         claims = {}

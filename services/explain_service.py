@@ -180,9 +180,28 @@ class ExplainService:
             total=db.execute('SELECT count(*) FROM events WHERE '+where,args).fetchone()[0]
             import json
             events=[json.loads(r[0]) for r in db.execute('SELECT payload FROM events WHERE '+where+' ORDER BY timestamp,seq LIMIT ? OFFSET ?',args+[limit,offset])]
+            from services.trade_stops import event_stops, legacy_stops
+            stops=[]
+            stop_warning=None
+            for index, row in enumerate(db.execute("SELECT payload FROM events WHERE "+where+" AND json_type(payload, '$.risk')='object' ORDER BY timestamp,seq LIMIT 10001",args)):
+                if index >= 10000 or len(stops) >= 10000:
+                    stop_warning='Stop history truncated at 10,000 snapshots.'
+                    break
+                stops.extend(event_stops([json.loads(row[0])]))
+        for fill in trade.get('fills', []):
+            stops.extend(fill.get('stop_history', []))
+            if fill.get('stop_history_truncated'):
+                stop_warning='Legacy stop history truncated at 10,000 updates per trade cycle.'
+        try:
+            stops.extend(legacy_stops(self.bot_root,bot,trade))
+        except (OSError,ValueError,TypeError,AttributeError):
+            stop_warning='Optional legacy stop evidence unavailable.'
+        if len(stops)>10000:
+            stops=sorted(stops,key=lambda s:parse_datetime(s['timestamp']))[:10000]
+            stop_warning='Stop history truncated at 10,000 snapshots.'
         from services.trade_prices import local_price_history
         prices = self.market_history.history(bot,trade,basis) if self.market_history else local_price_history(self.bot_root, bot, trade)
-        return dict(trade=trade,price_history=prices,events=events,total=total,offset=offset,limit=limit,
+        return dict(trade=trade,price_history=prices,stop_history=stops,stop_warning=stop_warning,events=events,total=total,offset=offset,limit=limit,
                     audit=audit(events,trade['status']=='CLOSED'),diagnostics=diagnostics(events),
                     audit_scope='Displayed event page only; snapshot checks are not an independent strategy re-evaluation or execution verification.',
                     explanation='Detailed decision data unavailable for this historical trade.' if not events else 'Only explicitly linked recorded/reconstructed events are shown.')

@@ -49,11 +49,13 @@ function drawTrade(){
   for(const e of events){const stamp=Date.parse(e.timestamp),v=basis==='option'?e.option?.price:e.market?.price;
     if(typeof v==='number'&&Number.isFinite(v))points.push({x:stamp,y:v,kind:'price',provenance:e.provenance});
     for(const [name,indicator] of Object.entries(e.indicators||{}).slice(0,20)){if(indicator?.overlay===true&&indicator.price_basis===basis&&typeof indicator.value==='number'&&Number.isFinite(indicator.value))points.push({x:stamp,y:indicator.value,kind:'indicator:'+name,provenance:e.provenance});}
-    if(e.risk?.price_basis===basis){const stop=e.risk.current_stop??e.risk.initial_stop;if(typeof stop==='number'&&Number.isFinite(stop))points.push({x:stamp,y:stop,kind:'stop',provenance:e.provenance});}
   }
   const overlayNames=[...new Set(points.filter(p=>p.kind.startsWith('indicator:')).map(p=>p.kind))];
   const overlayColors=['#c3a6ff','#6bd2eb','#f5ad75','#dd9cd2'];
   const cutoff=replayIndex==null?Infinity:Date.parse(events.at(-1)?.timestamp);
+  const stopHistory=(inspectorData.stop_history||events.flatMap(e=>(e.risk?.stops||[e.risk]).filter(s=>s?.price_basis).map(s=>({timestamp:e.timestamp,price:s.active===false?null:s.current_stop??s.initial_stop,price_basis:s.price_basis,stop_id:s.stop_id||'stop',label:s.label||'Stop loss',provenance:e.provenance})))).filter(s=>s.price_basis===basis&&Date.parse(s.timestamp)<=cutoff);
+  const stopGroups=new Map();
+  for(const s of stopHistory){const key=s.stop_id+(s.current_only?' current':'');if(!stopGroups.has(key))stopGroups.set(key,[]);stopGroups.get(key).push(s);if(Number.isFinite(s.price))points.push({x:Date.parse(s.timestamp),y:s.price,kind:'stop',provenance:s.provenance,current_only:s.current_only});}
   const priceHistory=inspectorData.price_history;
   if(priceHistory?.price_basis===basis)for(const p of priceHistory.points||[]){const stamp=Date.parse(p.timestamp);if(stamp<=cutoff)points.push({x:stamp,y:p.price,open:p.open,high:p.high,low:p.low,kind:'history'});}
   const matching=basis===(t.asset_class==='option'?'option':'underlying');
@@ -61,7 +63,7 @@ function drawTrade(){
   const optionActions=!matching&&t.asset_class==='option'&&basis==='underlying'?(t.fills||[]).filter(f=>!f.estimated_time&&Date.parse(f.timestamp)<=cutoff):[];
   const candles=$('chart-style')?.value==='candles';
   const bars=points.filter(p=>p.kind==='history').sort((a,b)=>a.x-b.x);
-  $('trade-chart-caption').textContent='Price samples (green), entry fills (blue), exit fills (red), explicitly scoped stops (amber). Hollow points are RECONSTRUCTED; solid points are RECORDED. Markers use actual fill records, including partial fills. Green line: actual historical bar closes, not a buy-to-sell connector. Candlesticks show recorded open/high/low/close. Periods without observations are compressed on the time axis and remain disconnected. Hover for the recorded bar values. Without historical bars, markers stay unconnected; fills are never used as ticker history. Blue/red horizontal guides: first entry / last exit fill prices. Stop steps show recorded thresholds only. '+(overlayNames.length?' Strategy-selected price overlays: '+overlayNames.map(n=>n.slice(10)).join(', ')+'.':'')+(bars.length?' '+bars.length+' market bars loaded.':'')+(candles&&!bars.some(p=>[p.open,p.high,p.low].every(Number.isFinite))?' OHLC data unavailable for candlesticks; use Price line.':'')+(priceHistory?.source?' '+priceHistory.source+'.':'')+(priceHistory?.context?' '+priceHistory.context:'')+(priceHistory?.warning?' '+priceHistory.warning:'')+(points.length?'':'Data unavailable for this price basis.');
+  $('trade-chart-caption').textContent='Price samples (green), entry fills (blue), exit fills (red), explicitly scoped stops (amber). Hollow points are RECONSTRUCTED; solid points are RECORDED. Markers use actual fill records, including partial fills. Green line: actual historical bar closes, not a buy-to-sell connector. Candlesticks show recorded open/high/low/close. Periods without observations are compressed on the time axis and remain disconnected. Hover for the recorded bar values. Without historical bars, markers stay unconnected; fills are never used as ticker history. Blue/red horizontal guides: first entry / last exit fill prices. Amber stop lines begin at the first recorded threshold and step at recorded updates. Dashed segments carry the last known threshold forward; unrecorded changes may be missing. Current-only references do not show historical stop creation. '+(overlayNames.length?' Strategy-selected price overlays: '+overlayNames.map(n=>n.slice(10)).join(', ')+'.':'')+(bars.length?' '+bars.length+' market bars loaded.':'')+(candles&&!bars.some(p=>[p.open,p.high,p.low].every(Number.isFinite))?' OHLC data unavailable for candlesticks; use Price line.':'')+(priceHistory?.source?' '+priceHistory.source+'.':'')+(priceHistory?.context?' '+priceHistory.context:'')+(priceHistory?.warning?' '+priceHistory.warning:'')+(stopHistory.length?' Stops: '+[...new Set(stopHistory.map(s=>s.label+' — '+(s.source||s.provenance)))].join('; ')+'.':' Stop history unavailable for this price basis; no stop levels are inferred.')+(inspectorData.stop_warning?' '+inspectorData.stop_warning:'')+(points.length?'':'Data unavailable for this price basis.');
   const rect=canvas.getBoundingClientRect(),scale=window.devicePixelRatio||1;canvas.width=rect.width*scale;canvas.height=250*scale;const ctx=canvas.getContext('2d');ctx.scale(scale,scale);if(!points.length)return;
   const values=points.map(p=>p.y).concat(candles?bars.flatMap(p=>[p.high,p.low]).filter(Number.isFinite):[]);
   let min=values.reduce((a,b)=>Math.min(a,b),Infinity),max=values.reduce((a,b)=>Math.max(a,b),-Infinity);if(min===max){min-=1;max+=1;}
@@ -90,7 +92,21 @@ function drawTrade(){
   };
   for(const kind of ['entry','exit']){const markers=points.filter(p=>p.kind===kind).sort((a,b)=>a.x-b.x);const p=kind==='entry'?markers[0]:markers.at(-1);if(p){ctx.strokeStyle=kind==='entry'?'#8bb6ff':'#fa8994';ctx.setLineDash([2,5]);ctx.beginPath();ctx.moveTo(60,y(p.y));ctx.lineTo(rect.width-25,y(p.y));ctx.stroke();ctx.setLineDash([]);}}
   for(const f of optionActions){const px=x(Date.parse(f.timestamp));ctx.strokeStyle=f.side==='buy'?'#8bb6ff':'#fa8994';ctx.fillStyle=ctx.strokeStyle;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(px,25);ctx.lineTo(px,210);ctx.stroke();ctx.setLineDash([]);ctx.fillText(f.side.toUpperCase()+' option',Math.min(px+3,rect.width-85),20);}
-  const stops=points.filter(p=>p.kind==='stop').sort((a,b)=>a.x-b.x);ctx.strokeStyle='#ebc778';ctx.beginPath();stops.forEach((p,i)=>{if(i){ctx.lineTo(x(p.x),y(stops[i-1].y));ctx.lineTo(x(p.x),y(p.y));}else ctx.moveTo(x(p.x),y(p.y));});ctx.stroke();
+  // Stop thresholds are state levels, not interpolated prices. Keep each mechanism separate.
+  const stopEnd=Math.min(last,cutoff,Number.isFinite(Date.parse(t.exit_time))&&!t.current?Date.parse(t.exit_time):Infinity);
+  ctx.strokeStyle='#ebc778';ctx.fillStyle='#ebc778';ctx.lineWidth=1.5;
+  for(const group of stopGroups.values()){
+    group.sort((a,b)=>Date.parse(a.timestamp)-Date.parse(b.timestamp));
+    group.forEach((s,i)=>{
+      if(!Number.isFinite(s.price))return;
+      const start=s.current_only?first:Date.parse(s.timestamp),next=group[i+1];
+      const end=s.current_only?last:Math.min(stopEnd,next?Date.parse(next.timestamp):Infinity);
+      if(end<start)return;
+      ctx.setLineDash([6,3]);ctx.beginPath();ctx.moveTo(x(start),y(s.price));ctx.lineTo(x(end),y(s.price));ctx.stroke();ctx.setLineDash([]);
+      if(next&&!s.current_only&&Number.isFinite(next.price)&&Date.parse(next.timestamp)<=stopEnd){ctx.beginPath();ctx.moveTo(x(end),y(s.price));ctx.lineTo(x(end),y(next.price));ctx.stroke();}
+      if(i===group.length-1)ctx.fillText((s.current_only?'Current reference: ':'')+s.label+' '+s.price.toFixed(2),Math.min(x(start)+5,rect.width-180),y(s.price)-7);
+    });
+  }
   for(const p of points){if(p.kind==='history'&&(candles||bars.length>500))continue;ctx.fillStyle={price:'#68dfb2',history:'#68dfb2',entry:'#8bb6ff',exit:'#fa8994',stop:'#ebc778'}[p.kind]||overlayColors[overlayNames.indexOf(p.kind)%overlayColors.length];ctx.beginPath();ctx.arc(x(p.x),y(p.y),p.kind==='history'?1:p.kind==='price'?3:5,0,Math.PI*2);if(p.provenance==='RECONSTRUCTED'){ctx.strokeStyle=ctx.fillStyle;ctx.stroke();}else ctx.fill();if(p.kind==='entry'||p.kind==='exit')ctx.fillText(p.kind,x(p.x)-12,y(p.y)-10);}
   ctx.fillStyle='#90a1b8';ctx.fillText(date(new Date(first).toISOString()),60,242);ctx.textAlign='right';ctx.fillText(date(new Date(last).toISOString()),rect.width-15,242);
 }

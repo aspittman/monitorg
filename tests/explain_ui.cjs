@@ -104,5 +104,15 @@ strokes.length=0;evaluate('drawTrade()');
 assert.equal(strokes.filter(p=>p[0]==='body').length,4,'Candles use all four real OHLC bars');
 assert.equal(strokes.filter(p=>p[0]==='line').length,4,'Candles show recorded high/low wicks without connections');
 console.log('Chart line and replay cutoff tests passed.');
+// A single stop must draw a horizontal level; separate mechanisms never connect.
+evaluate(`document.getElementById('chart-style').value='line';inspectorData.price_history.points=[{timestamp:'2026-09-18T19:45:00Z',price:101},{timestamp:'2026-09-18T20:00:00Z',price:102}];inspectorData.stop_history=[{timestamp:'2026-09-18T19:45:00Z',price:95,stop_id:'hard',label:'Hard stop',price_basis:'underlying',provenance:'RECORDED'}];`);
+strokes.length=0;evaluate('drawTrade()');
+assert.equal(strokes.filter(p=>p[0]==='line').length,2,'Single stop extends horizontally alongside actual market history');
+evaluate(`inspectorData.stop_history.push({timestamp:'2026-09-18T19:45:00Z',price:97,stop_id:'trail',label:'Trailing stop',price_basis:'underlying',provenance:'RECORDED'});`);
+strokes.length=0;evaluate('drawTrade()');
+assert.equal(strokes.filter(p=>p[0]==='line').length,3,'Independent stops have no connecting vertical segment');
+evaluate(`inspectorData.stop_history.push({timestamp:'2026-09-18T19:50:00Z',price:2,stop_id:'premium',label:'Option stop',price_basis:'option',provenance:'RECORDED'});inspectorData.events=[{timestamp:'2026-09-18T19:40:00Z'}];replayIndex=0;`);
+strokes.length=0;evaluate('drawTrade()');
+assert.equal(strokes.filter(p=>p[0]==='line').length,0,'Replay never reveals a future stop');
 full.window.close();dom.window.close();
 console.log('Both production scripts passed integration: existing detail render, journal tab, bot dropdown, and preserved metrics.');
