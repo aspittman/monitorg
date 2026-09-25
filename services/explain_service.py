@@ -47,6 +47,7 @@ def journal_from_fills(bot, fills, public):
                 t['capital']=None if capital is None or t['capital'] is None else t['capital']+capital
                 t['cost']-=average*q;t['remaining']-=q;t['closed_qty']+=q;t['close_value']+=f['price']*q
                 t['exit_price']=t['close_value']/t['closed_qty']
+                t['exit_time']=f['timestamp']
                 if t['remaining']<1e-8:
                     t['status']='CLOSED';t['exit_time']=f['timestamp'];active.pop(symbol);rows.append(t)
             t['fills'].append(f);t['order_ids'].append(f['order_id'])
@@ -66,6 +67,10 @@ def journal_from_fills(bot, fills, public):
                 t['current']=None
             if t['current'] is None or abs(abs(t['current']['quantity'])-t['remaining'])>1e-8:
                 t['status']='UNRECONCILED'
+        if t.get('exit_time'):
+            t['exit_scope'] = ('Final closing fill' if t['status']=='CLOSED' else
+                               'Latest recorded sell/closing fill; full position closure is unverified. Remaining ledger quantity may reflect partial exits or unrecorded crypto fees.')
+            t['hold_scope'] = 'Elapsed from first entry to latest recorded closing fill; not the age of any remaining position.'
         if t.get('entry_time') and t.get('exit_time') and not t.get('estimated_time'):
             t['hold_seconds']=(parse_datetime(t['exit_time'])-parse_datetime(t['entry_time'])).total_seconds()
     for symbol,p in positions.items():
@@ -121,8 +126,10 @@ def diagnostics(events):
 
 
 class ExplainService:
-    def __init__(self, store):
+    def __init__(self, store, bot_root=None, market_history=None):
         self.store=store
+        self.bot_root=bot_root
+        self.market_history=market_history
 
     def sync(self, bot, fills, public):
         import json
@@ -157,7 +164,7 @@ class ExplainService:
         self.store.replace_journal(bot,trades)
         self._synced[bot]=signature
 
-    def inspector(self, bot, trade_id, limit=100, offset=0):
+    def inspector(self, bot, trade_id, limit=100, offset=0, basis='underlying'):
         trade=self.store.trade(bot,trade_id)
         if not trade:return None
         # Only immutable IDs correlate events, never symbol/time proximity.
@@ -173,7 +180,9 @@ class ExplainService:
             total=db.execute('SELECT count(*) FROM events WHERE '+where,args).fetchone()[0]
             import json
             events=[json.loads(r[0]) for r in db.execute('SELECT payload FROM events WHERE '+where+' ORDER BY timestamp,seq LIMIT ? OFFSET ?',args+[limit,offset])]
-        return dict(trade=trade,events=events,total=total,offset=offset,limit=limit,
+        from services.trade_prices import local_price_history
+        prices = self.market_history.history(bot,trade,basis) if self.market_history else local_price_history(self.bot_root, bot, trade)
+        return dict(trade=trade,price_history=prices,events=events,total=total,offset=offset,limit=limit,
                     audit=audit(events,trade['status']=='CLOSED'),diagnostics=diagnostics(events),
                     audit_scope='Displayed event page only; snapshot checks are not an independent strategy re-evaluation or execution verification.',
                     explanation='Detailed decision data unavailable for this historical trade.' if not events else 'Only explicitly linked recorded/reconstructed events are shown.')

@@ -15,6 +15,7 @@ from services.process_monitor import inspect
 from services.snapshot_store import SnapshotStore
 from services.explain_store import ExplainStore
 from services.explain_service import ExplainService
+from services.trade_prices import MarketHistory
 from services.source_reader import signature
 from services.trade_service import counts
 from services.performance_service import closed_trade_returns
@@ -30,7 +31,8 @@ class Monitor:
         self.explain_error = None
         try:
             if config.EXPLAIN_ENABLED:
-                self.explain = ExplainService(ExplainStore(data_dir/'explainability.db'))
+                self.explain = ExplainService(ExplainStore(data_dir/'explainability.db'), bot_root,
+                                              MarketHistory(bot_root, self.accounts, enabled=alpaca))
         except Exception:
             self.explain_error = 'Explainability storage unavailable; existing monitoring continues.'
         self.lock = threading.Lock()
@@ -232,10 +234,18 @@ class Monitor:
         # Explainability consumes the final ownership assessment, including overlaps.
         for d, b in zip(data, bots):
             if self.explain:
+                journal_fills, journal_public = d.trades, b
+                if not d.history_reliable:
+                    registry = (accounts.get(b['account']) or {}).get('ownership_registry') or {}
+                    owners = registry.get('order_owners', {})
+                    verified = [f for f in d.trades if owners.get(f['order_id']) == d.bot_id]
+                    if verified:
+                        journal_fills = verified
+                        journal_public = dict(b, history_reliable=True)
                 for step in (
                     lambda: self.explain.store.ingest(d.bot_id, self.bot_root/d.bot_id/'logs/monitor_events.jsonl'),
                     lambda: self.explain.import_legacy(d.bot_id, self.bot_root/d.bot_id),
-                    lambda: self.explain.sync(d.bot_id, d.trades, b),
+                    lambda: self.explain.sync(d.bot_id, journal_fills, journal_public),
                 ):
                     try:
                         imported = step()

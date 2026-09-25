@@ -71,7 +71,10 @@ def handler_for(monitor):
                         from services.explain_service import diagnostics
                         data['diagnostics'] = diagnostics(data['items'])
                     else:
-                        data = monitor.explain.inspector(bot, params.get('trade',''), limit, offset)
+                        basis = params.get('basis','underlying')
+                        if basis not in ('underlying','option'):
+                            return self.send(400, '{"error":"Invalid price basis"}')
+                        data = monitor.explain.inspector(bot, params.get('trade',''), limit, offset, basis)
                         if data is None:
                             return self.send(404, '{"error":"Trade not found"}')
                     return self.send(200, json.dumps(data,allow_nan=False))

@@ -14,6 +14,8 @@ class MomentumMaster(Adapter):
                 continue
             price = row['entry_price'] if row['side'].lower() == 'buy' else row['exit_price']
             t = self.trade(row['filled_at'], row['symbol'], row['side'], row['qty'], price, row['order_id'])
+            t['entry_reason'] = row.get('entry_reason') or None
+            t['exit_reason'] = row.get('exit_reason') or None
             by_id[t['order_id']] = t
         data.trades = list(by_id.values())
         data.history_reliable = False
